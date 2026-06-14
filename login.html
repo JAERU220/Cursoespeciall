@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - DetailingYali</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="login.css"> 
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="navbar-wrapper">
+        <div class="navbar-container">
+            <div class="logo">
+                <!-- ICONO PREMIUM -->
+                <svg viewBox="0 0 100 100" class="logo-svg-premium" style="width: 34px !important; height: 34px !important;">
+                    <defs>
+                        <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00b4db" />
+                            <stop offset="100%" stop-color="#0083b0" />
+                        </linearGradient>
+                        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00f2fe" />
+                            <stop offset="100%" stop-color="#4facfe" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M10 65 h12 a6 6 0 0 1 12 0 h32 a6 6 0 0 1 12 0 h12 v-6 c0-3-2-6-5-7 l-15-8 c-4-2-8-4-13-4 h-18 c-3 0-6 2-8 5 l-18 14 c-2 2-4 4-4 7 z" fill="url(#carGrad)" />
+                    <path d="M42 43 h16 l10 7 h-21 z" fill="#ffffff" opacity="0.6" />
+                    <circle cx="28" cy="65" r="7" fill="#1f2937" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="28" cy="65" r="3" fill="#9ca3af" />
+                    <circle cx="70" cy="65" r="7" fill="#1f2937" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="70" cy="65" r="3" fill="#9ca3af" />
+                    <path d="M35 25 l2 5 l5 2 l-5 2 l-2 5 l-2-5 l-5-2 l5-2 z" fill="url(#glowGrad)" />
+                    <path d="M78 32 l1.5 3.5 l3.5 1.5 l-3.5 1.5 l-1.5 3.5 l-1.5-3.5 l-3.5-1.5 l3.5-1.5 z" fill="url(#glowGrad)" />
+                </svg>
+                <span>DetailingYali</span>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="servicios.html">Servicios</a>
+                <a href="paquetes.html">Paquetes</a>
+                <a href="galeria.html">Galería</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ENVOLTORIO MAESTRO DE CONTROL -->
+    <div class="login-page-wrapper">
+        <main class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Iniciar Sesión</h2>
+                    <p>Ingresa tus credenciales para gestionar tus citas y cotizaciones</p>
+                </div>
+
+                <div id="status-message" class="status-msg" style="display: none;"></div>
+
+                <form class="auth-form" id="form-login">
+                    <div class="form-group">
+                        <label for="correo">Correo Electrónico</label>
+                        <input type="email" id="correo" placeholder="tu@correo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-submit">Ingresar</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>¿No tienes cuenta? <a href="registrarse.html">Regístrate aquí</a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER ANCLADO Y CORREGIDO -->
+    <footer class="site-footer">
+        <div class="footer-logo-container">
+            <span class="footer-logo-text">🧼 DetailingYali</span>
+        </div>
+        <p class="footer-copyright">&copy; 2026 DetailingYali. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>         
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginForm = document.getElementById('form-login');
+        const statusMessage = document.getElementById('status-message');
+        const btnSubmit = document.getElementById('btn-submit');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const correo = document.getElementById('correo').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            statusMessage.style.display = 'none';
+            statusMessage.className = 'status-msg';
+
+            if (!correo || !password) {
+                showStatus('Por favor, rellena todos los campos.', 'error');
+                return;
+            }
+
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = 'Verificando...';
+
+            try {
+                const response = await fetch('login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ correo, password })
+                });
+
+                const resultado = await response.json();
+
+                if (response.ok && resultado.status === 'success') {
+                    
+                    // ALMACENAMIENTO SEGURO DE VARIABLES GLOBALES DE SESIÓN
+                    localStorage.setItem('usuario_id', resultado.id);
+                    localStorage.setItem('usuario_logeado', resultado.nombre);
+                    localStorage.setItem('usuario_rol', resultado.rol); 
+                    // CAMBIO CLAVE: Guarda el correo para que reservar_cita.html funcione al 100%
+                    localStorage.setItem('usuario_logeado_correo', resultado.correo);
+                    
+                    showStatus('¡Inicio de sesión correcto! Redirigiendo...', 'success');
+                    loginForm.reset();
+
+                    // REDIRECCIÓN INTELIGENTE ASOCIADA A TUS ARCHIVOS REALES
+                    setTimeout(() => {
+                        if (resultado.rol === 'admin') {
+                            window.location.href = 'admin.html';       
+                        } else if (resultado.rol === 'trabajador') {
+                            // CORRECCIÓN: Apunta al nombre exacto de tu archivo del operario
+                            window.location.href = 'panel_trabajador.html';  
+                        } else {
+                            window.location.href = 'index.html';       
+                        }
+                    }, 1500);
+                    
+                } else {
+                    showStatus(resultado.message || 'Credenciales de acceso incorrectas.', 'error');
+                    btnSubmit.disabled = false;
+                    btnSubmit.textContent = 'Ingresar';
+                }
+            } catch (error) {
+                showStatus('No se pudo conectar con el servidor de la base de datos.', 'error');
+                btnSubmit.disabled = false;
+                btnSubmit.textContent = 'Ingresar';
+            }
+        });
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.style.display = 'block';
+            statusMessage.className = 'status-msg ' + type;
+        }
+    });
+    </script>
+</body>
+</html>

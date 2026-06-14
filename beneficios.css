@@ -1,0 +1,311 @@
+/* ========================================================
+   ESTILOS BASE ESTRUCTURALES Y TIPOGRAFÍA
+   ======================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #05070f; /* CORRECCIÓN: Fondo oscuro global */
+    font-family: 'Inter', sans-serif; /* CORRECCIÓN: Aplicación de tu fuente importada */
+}
+
+/* El main ocupará todo el espacio disponible, mandando el footer al fondo */
+.tabla-seccion-wrapper {
+    flex: 1; /* Esto asegura que el footer se mantenga abajo */
+}
+
+/* ==========================================================================
+   2. ESTILOS DEL FOOTER OPTIMIZADOS Y CORREGIDOS
+   ========================================================================== */
+.site-footer {
+    background-color: #0b0d19; /* Fondo oscuro a juego con tu interfaz */
+    border-top: 1px solid #1a202c; /* Línea sutil superior */
+    padding: 30px 20px;
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Contenedor del logo */
+.site-footer .footer-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.site-footer .footer-logo-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Eslogan */
+.site-footer .footer-tagline {
+    color: #e2e8f0 !important;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Copyright */
+.site-footer .footer-copyright {
+    color: #718096 !important;
+    font-size: 12px;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* ========================================================
+   BARRA DE NAVEGACIÓN (HEADER)
+   ======================================================== */
+.navbar-wrapper {
+    background-color: #05070f;
+    border-bottom: 1px solid #161b30;
+    padding: 15px 0;
+    width: 100%;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Estilos de Logo con Animaciones Fluidas */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Dimensión y sombra del coche deportivo */
+.logo-svg-premium {
+    width: 44px;
+    height: 44px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* El auto avanza suavemente hacia el texto al pasar el cursor */
+.logo:hover .logo-svg-premium {
+    transform: scale(1.12) translateX(4px);
+}
+
+/* Menú de Navegación */
+.nav-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    transition: all 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #00b4db; /* Iluminación cian del logo */
+    background-color: #11162b; /* Contenedor oscuro sutil */
+    transform: translateY(-2px);
+}
+
+.navbar-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-cta {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #161b30;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.2s ease;
+}
+
+.btn-cta:hover {
+    background-color: #0b0e1a;
+    border-color: #00b4db;
+    transform: scale(1.03);
+}
+
+/* ========================================================
+   SECCIÓN HERO (OPCIONAL EN TU HTML POR AHORA)
+   ======================================================== */
+.hero-container {
+    max-width: 1200px;
+    margin: 60px auto 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    color: #ffffff;
+}
+
+.hero-content p {
+    font-size: 16px;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin: 0 0 30px 0;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-action-primary {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid #161b30;
+    transition: background-color 0.3s;
+}
+
+.btn-action-primary:hover {
+    background-color: #111111;
+}
+
+.btn-action-secondary {
+    background-color: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid #ffffff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-action-secondary:hover {
+    background-color: #ffffff;
+    color: #05070f;
+}
+
+.hero-image {
+    width: 100%;
+    border-radius: 24px;
+    display: block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================================
+   DISEÑO SECCIÓN DE LA TABLA COMPARATIVA
+   ======================================================== */
+.tabla-seccion-wrapper {
+    max-width: 1200px;
+    margin: 60px auto 80px auto; /* Ajustado el margen superior */
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.tabla-detailing-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 12px;
+    background-color: #0b0e1a;
+    border: 1px solid #161b30;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.tabla-detailing-especial {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabla-detailing-especial caption {
+    padding: 20px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #a0aec0; /* Mejorado el color de la leyenda para legibilidad */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+    border-bottom: 1px solid #161b30;
+}
+
+.tabla-detailing-especial th[scope="col"] {
+    background-color: #05070f;
+    color: #00b4db;
+    padding: 18px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #161b30;
+}
+
+.tabla-detailing-especial td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #161b30;
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+.columna-paquete {
+    padding: 18px 20px;
+    font-weight: 800;
+    color: #ffffff;
+    background-color: #05070f;
+    border-bottom: 1px solid #161b30;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.tabla-detailing-especial tbody tr:hover {
+    background-color: #11162b;
+    transition: background-color 0.2s ease;
+}
+
+.tabla-detailing-especial .fila-destacada-popular {
+    background-color: #0f172a;
+}
+
+.tabla-detailing-especial .fila-destacada-popular .columna-paquete {
+    color: #00f2fe;
+}
+
+.tabla-detailing-especial .fila-destacada-popular span {
+    color: #ffd700;
+    margin-left: 5px;
+}

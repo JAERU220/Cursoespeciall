@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Cita - AutoDetailPro</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="reservar_cita.css">
+    
+    <style>
+        .status-msg { padding: 1rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center; width: 100%; max-width: 1200px; margin: 0 auto 2rem auto; }
+        .status-msg.success { background-color: rgba(0, 180, 219, 0.1); color: #00b4db; border: 1px solid rgba(0, 180, 219, 0.3); }
+        .status-msg.error { background-color: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="navbar-wrapper" style="width: 100vw !important; max-width: 100vw !important; left: 50% !important; right: 50% !important; margin-left: -50vw !important; margin-right: -50vw !important; display: block !important;">
+        <div class="navbar-container" style="width: 100% !important; max-width: 100% !important; padding: 0.8rem 4rem !important; display: flex !important; justify-content: space-between !important; align-items: center !important; margin: 0 auto !important; box-sizing: border-box !important;">
+            <div class="logo" style="display: flex !important; align-items: center !important; gap: 0.5rem !important;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span style="font-size: 1.15rem !important; font-weight: 700 !important; color: #ffffff !important;">AutoDetailPro</span>
+            </div>
+            <nav class="nav-links" style="display: flex !important; gap: 0.5rem !important; align-items: center !important;">
+                <a href="index.html">Inicio</a>
+                <a href="servicios.html">Servicios</a>
+                <a href="paquetes.html">Paquetes</a>
+                <a href="galeria.html">Galería</a>
+                <a href="contacto.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="booking-container">
+        <div class="booking-header">
+            <h2>Agenda tu Cita</h2>
+            <p>Selecciona el día, la hora y el paquete ideal para consentir a tu vehículo</p>
+        </div>
+
+        <div id="status-message" class="status-msg" style="display: none;"></div>
+
+        <form class="booking-grid" id="form-reserva">
+            <!-- COLUMNA IZQUIERDA: FECHA Y HORA -->
+            <div class="booking-left">
+                <div class="booking-card">
+                    <h3>1. Selecciona Fecha y Hora</h3>
+                    
+                    <div class="form-group">
+                        <label for="booking-date">Fecha de la Cita</label>
+                        <input type="date" id="booking-date" name="booking_date" required min="2026-06-02">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Horarios Disponibles</label>
+                        <div class="time-slots-grid">
+                            <label class="time-slot"><input type="radio" name="booking_time" value="09:00" required><span>09:00 AM</span></label>
+                            <label class="time-slot"><input type="radio" name="booking_time" value="11:30"><span>11:30 AM</span></label>
+                            <label class="time-slot"><input type="radio" name="booking_time" value="14:00"><span>02:00 PM</span></label>
+                            <label class="time-slot"><input type="radio" name="booking_time" value="16:30"><span>04:30 PM</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: DATOS REALES DEL VEHÍCULO -->
+            <div class="booking-right">
+                <div class="booking-card">
+                    <h3>2. Detalles del Vehículo y Cliente</h3>
+                    
+                    <div class="form-group">
+                        <label for="service-package">Paquete de Detallado</label>
+                        <select id="service-package" required>
+                            <option value="" disabled selected>Elige un paquete...</option>
+                            <option value="basico">Paquete Básico — $49</option>
+                            <option value="premium">Paquete Premium — $99</option>
+                            <option value="elite">Paquete Elite — $199</option>
+                        </select>
+                    </div>
+
+                    <!-- NUEVOS CAMPOS EXIGIDOS POR TU TABLA AUTOMOVIL -->
+                    <div class="form-group">
+                        <label for="car-brand">Marca del Auto</label>
+                        <input type="text" id="car-brand" placeholder="Ej: Ford, Honda, Nissan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="car-model">Modelo / Versión</label>
+                        <input type="text" id="car-model" placeholder="Ej: Focus ST, Civic, Versa" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="car-year">Año del Auto</label>
+                        <input type="number" id="car-year" placeholder="Ej: 2022" required min="1980" max="2027">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="car-plates">Placas del Vehículo</label>
+                        <input type="text" id="car-plates" placeholder="Ej: PAD-123-A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="client-name">Nombre Completo</label>
+                        <input type="text" id="client-name" readonly required style="background: rgba(255,255,255,0.05); color: #718096; cursor: not-allowed;">
+                    </div>
+
+                    <button type="submit" class="btn-confirm" id="btn-submit">Confirmar Reserva</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer class="site-footer" style="text-align: center; padding: 3rem; background: #070914;">
+        <span class="footer-logo-text">🧼 DetailingYali</span>
+        <p>&copy; 2026 AutoDetailPro. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- INTERACCIÓN JAVASCRIPT CON EL SERVIDOR -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formReserva = document.getElementById('form-reserva');
+        const statusMessage = document.getElementById('status-message');
+        const btnSubmit = document.getElementById('btn-submit');
+
+        // Recuperamos los datos que guardó el inicio de sesión
+        const correoSesion = localStorage.getItem('usuario_logeado_correo') || 'correo_prueba@taller.com'; 
+        const nombreSesion = localStorage.getItem('usuario_logeado') || 'Cliente';
+
+        // Pintamos el nombre del cliente logeado en el campo deshabilitado
+        if (document.getElementById('client-name')) {
+            document.getElementById('client-name').value = nombreSesion;
+        }
+
+        formReserva.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fecha = document.getElementById('booking-date').value;
+            const paquete = document.getElementById('service-package').value;
+            const marca = document.getElementById('car-brand').value.trim();
+            const modelo = document.getElementById('car-model').value.trim();
+            const anio = document.getElementById('car-year').value.trim();
+            const placas = document.getElementById('car-plates').value.trim().toUpperCase();
+
+            const radioHora = document.querySelector('input[name="booking_time"]:checked');
+            const hora = radioHora ? radioHora.value : null;
+
+            statusMessage.style.display = 'none';
+            statusMessage.className = 'status-msg';
+
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = 'Procesando Reserva...';
+
+            try {
+                // Apunta directamente al archivo reservar.php que procesará la lógica relacional
+                const response = await fetch('reservar.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        fecha, 
+                        hora, 
+                        paquete, 
+                        marca, 
+                        modelo, 
+                        anio, 
+                        placas, 
+                        correo_cliente: correoSesion 
+                    })
+                });
+
+                const resultado = await response.json();
+
+                if (response.ok && resultado.status === 'success') {
+                    showStatus(resultado.message, 'success');
+                    formReserva.reset();
+                    document.getElementById('client-name').value = nombreSesion;
+                } else {
+                    showStatus(resultado.message || 'Error al agendar.', 'error');
+                }
+            } catch (error) {
+                showStatus('No se pudo conectar con el servidor.', 'error');
+            } finally {
+                btnSubmit.disabled = false;
+                btnSubmit.textContent = 'Confirmar Reserva';
+            }
+        });
+
+        function showStatus(message, type) {
+statusMessage.textContent = message;statusMessage.style.display = 'block';statusMessage.className = 'status-msg ' + type;}});

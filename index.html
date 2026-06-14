@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDetailPro - Detallado Automotriz</title>
+
+    <!-- Importación de fuentes elegante Plus Jakarta Sans e Inter -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN COMPLEMENTARIA FORZADA A ANCHO COMPLETO -->
+    <header class="navbar-wrapper" style="width: 100vw !important; max-width: 100vw !important; left: 50% !important; right: 50% !important; margin-left: -50vw !important; margin-right: -50vw !important; display: block !important;">
+        <div class="navbar-container" style="width: 100% !important; max-width: 100% !important; padding: 0.8rem 4rem !important; display: flex !important; justify-content: space-between !important; align-items: center !important; margin: 0 auto !important; box-sizing: border-box !important;">
+            
+            <div class="logo" style="display: flex !important; align-items: center !important; gap: 0.5rem !important;">
+                <!-- ICONO PREMIUM -->
+                <svg viewBox="0 0 100 100" class="logo-svg-premium" style="width: 34px !important; height: 34px !important;">
+                    <defs>
+                        <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00b4db" />
+                            <stop offset="100%" stop-color="#0083b0" />
+                        </linearGradient>
+                        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00f2fe" />
+                            <stop offset="100%" stop-color="#4facfe" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M10 65 h12 a6 6 0 0 1 12 0 h32 a6 6 0 0 1 12 0 h12 v-6 c0-3-2-6-5-7 l-15-8 c-4-2-8-4-13-4 h-18 c-3 0-6 2-8 5 l-18 14 c-2 2-4 4-4 7 z" fill="url(#carGrad)" />
+                    <path d="M42 43 h16 l10 7 h-21 z" fill="#ffffff" opacity="0.6" />
+                    <circle cx="28" cy="65" r="7" fill="#1f2937" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="28" cy="65" r="3" fill="#9ca3af" />
+                    <circle cx="70" cy="65" r="7" fill="#1f2937" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="70" cy="65" r="3" fill="#9ca3af" />
+                    <path d="M35 25 l2 5 l5 2 l-5 2 l-2 5 l-2-5 l-5-2 l5-2 z" fill="url(#glowGrad)" />
+                    <path d="M78 32 l1.5 3.5 l3.5 1.5 l-3.5 1.5 l-1.5 3.5 l-1.5-3.5 l-3.5-1.5 l3.5-1.5 z" fill="url(#glowGrad)" />
+                </svg>
+                <span style="font-size: 1.15rem !important; font-weight: 700 !important; color: #ffffff !important;">DetailingYali</span>
+            </div>
+            
+            <nav class="nav-links" style="display: flex !important; gap: 0.5rem !important; align-items: center !important;">
+                <a href="servicios.html">Servicios</a>
+                <a href="paquetes.html">Paquetes</a>
+                <a href="galeria.html">Galería</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="beneficios.html">Beneficios</a>
+            </nav>
+
+            <div class="navbar-buttons" style="display: flex !important; gap: 0.6rem !important; align-items: center !important;">
+                <a href="reservar_cita.html" id="btn-reserva-nav" class="btn-primary btn-cta" style="display: none;">Reservar Cita</a>
+                <a href="login.html" id="btn-login-nav" class="btn-primary btn-cta">Iniciar Sesión</a>
+                <a href="#" id="btn-logout" class="btn-nav btn-border" style="display: none; border: 1px solid #f87171; padding: 0.5rem 1rem; border-radius: 8px; color: #f87171; text-decoration: none; font-weight: 600; font-size: 0.88rem;">
+                    Cerrar Sesión
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN HERO (PRINCIPAL) -->
+    <main class="hero-container">
+        <!-- Columna Izquierda: Textos y Botones -->
+        <section class="hero-content">
+           <h1 id="main-title">Dale a tu auto el cuidado que merece</h1>
+            <p>Servicios profesionales de detallado automotriz con más de 10 años de experiencia. Devolvemos el brillo original a tu vehículo.</p>
+            <div class="hero-buttons">
+                <a href="paquetes.html" class="btn-primary">Ver Paquetes</a>
+                <a href="contacto.html" class="btn-secondary">Llamar Ahora</a>
+            </div>
+        </section>
+
+        <!-- Columna Derecha: Imagen con bordes redondeados -->
+        <section class="hero-image-container">
+            <img src="auto.png" alt="Lavado de auto profesional" class="hero-image" onerror="this.style.display='none'">
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="site-footer">
+        <div class="footer-logo-container">
+            <span class="footer-logo-text">🧼 DetailingYali</span>
+        </div>
+        <p class="footer-tagline">Tu destino para el detallado automotriz profesional</p>
+        <p class="footer-copyright">&copy; 2026 AutoDetailPro. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT DE CONTROL DE SESIÓN Y SEGURIDAD -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const usuarioGuardado = localStorage.getItem('usuario_logeado');
+        const btnLogout = document.getElementById('btn-logout');
+        const btnLogin = document.getElementById('btn-login-nav');
+        const btnReserva = document.getElementById('btn-reserva-nav');
+        const mainTitle = document.getElementById('main-title');
+
+        if (usuarioGuardado) {
+            // Estado Autenticado para Clientes Regulares
+            if (btnLogin) btnLogin.style.display = 'none';
+            if (btnLogout) btnLogout.style.display = 'inline-block';
+            if (btnReserva) btnReserva.style.setProperty('display', 'inline-block', 'important');
+            
+            if (mainTitle) {
+                mainTitle.innerHTML = `¡Bienvenido, <span style="color: #00b4db; text-transform: capitalize;">${usuarioGuardado}</span>!<br>Dale a tu auto el cuidado que merece`;
+            }
+        } else {
+            // Estado de Invitado Público General
+            if (btnLogout) btnLogout.style.display = 'none';
+            if (btnReserva) btnReserva.style.setProperty('display', 'none', 'important');
+            if (btnLogin) btnLogin.style.display = 'inline-block';
+        }
+
+        // Evento de Limpieza Total para el Cierre de Sesión Seguro
+        if (btnLogout) {
+            btnLogout.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.clear(); 
+                sessionStorage.clear();
+                window.location.reload(); 
+            });
+        }
+    });
+    </script>
+</body>
+</html>

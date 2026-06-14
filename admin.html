@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - AutoDetailPro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <div class="admin-layout">
+        <!-- BARRA LATERAL -->
+        <aside class="sidebar">
+            <h2>⚙️ DetailingYali Admin</h2>
+            <div class="sidebar-menu">
+                <button class="menu-btn active" id="btn-tab-clientes" onclick="switchTab('clientes')">👥 Clientes</button>
+                <button class="menu-btn" id="btn-tab-empleados" onclick="switchTab('empleados')">🛠️ Personal Taller</button>
+                <button class="menu-btn" id="btn-tab-citas" onclick="switchTab('citas')">📅 Citas Generales</button>
+                <button class="menu-btn logout-btn" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 id="panel-title">Gestión de Clientes</h1>
+                <button class="btn-add" id="btn-create-trigger" onclick="openCreateModal()">➕ Añadir Registro</button>
+            </div>
+
+            <div class="crud-table-wrapper">
+                <table class="crud-table">
+                    <thead id="table-head"></thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- VENTANA MODAL -->
+    <div class="modal" id="crud-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 id="modal-title">Formulario de Registro</h3>
+            <form id="modal-form">
+                <input type="hidden" id="entity-id">
+                <div id="form-dynamic-fields"></div>
+                <button type="submit" class="btn-submit-modal">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'clientes';
+
+        // FILTRO DE SEGURIDAD
+        if (localStorage.getItem('usuario_rol') !== 'admin') {
+            window.location.href = 'login.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTableData();
+            document.getElementById('modal-form').addEventListener('submit', handleFormSubmit);
+        });
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.sidebar-menu .menu-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (tab === 'clientes') document.getElementById('btn-tab-clientes').classList.add('active');
+            if (tab === 'empleados') document.getElementById('btn-tab-empleados').classList.add('active');
+            if (tab === 'citas') document.getElementById('btn-tab-citas').classList.add('active');
+            
+            const titles = {
+                clientes: 'Gestión de Clientes',
+                empleados: 'Personal de Trabajo',
+                citas: 'Control de Citas'
+            };
+            
+            document.getElementById('panel-title').textContent = titles[tab];
+            document.getElementById('btn-create-trigger').style.display = (tab === 'citas') ? 'none' : 'block';
+            loadTableData();
+        }
+
+        async function loadTableData() {
+            const tableHead = document.getElementById('table-head');
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '<tr><td colspan="6" style="padding:20px;">Buscando información...</td></tr>';
+
+            if (currentTab === 'clientes') {
+                tableHead.innerHTML = `<tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Dirección</th><th>Acciones</th></tr>`;
+            } else if (currentTab === 'empleados') {
+                tableHead.innerHTML = `<tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Cargo</th><th>Rol</th><th>Acciones</th></tr>`;
+            } else if (currentTab === 'citas') {
+                tableHead.innerHTML = `<tr><th>ID</th><th>Cliente</th><th>Servicio</th><th>Fecha / Hora</th><th>Estado</th><th>Acciones</th></tr>`;
+            }
+
+            try {
+                const response = await fetch(`admin_api.php?action=read&tab=${currentTab}`);
+                const data = await response.json();
+                tableBody.innerHTML = '';
+
+                if (!data || data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">No hay registros.</td></tr>';
+                    return;
+                }
+
+                data.forEach(row => {
+                    let tr = document.createElement('tr');
+                    if (currentTab === 'clientes') {
+                        tr.innerHTML = `
+                            <td>${row.id_cliente}</td>
+                            <td>${row.nombre} ${row.apellido}</td>
+                            <td>${row.correo}</td>
+                            <td>${row.telefono}</td>
+                            <td>${row.direccion}</td>`;
+                        tr.appendChild(createActionButtons(row.id_cliente, row));
+                    } else if (currentTab === 'empleados') {
+                        tr.innerHTML = `
+                            <td>${row.id_empleado}</td>
+                            <td>${row.nombre} ${row.apellido}</td>
+                            <td>${row.correo}</td>
+                            <td>${row.cargo}</td>
+                            <td><strong>${row.rol}</strong></td>`;
+                        tr.appendChild(createActionButtons(row.id_empleado, row));
+                    } else if (currentTab === 'citas') {
+                        tr.innerHTML = `
+                            <td>${row.id_cita}</td>
+                            <td>${row.cliente_nombre}</td>
+                            <td>${row.nombre_servicio}</td>
+                            <td>${row.fecha_hora}</td>
+                            <td><strong>${row.estado.toUpperCase()}</strong></td>`;
+                        tr.appendChild(createActionButtons(row.id_cita, row));
+                    }
+                    tableBody.appendChild(tr);
+                });
+            } catch (err) {
+                tableBody.innerHTML = '<tr><td colspan="6" style="color:#ff4d4d; padding:20px;">Error al conectar con el servidor.</td></tr>';
+            }
+        }
+
+        function createActionButtons(id, dataRow) {
+            let td = document.createElement('td');
+            td.className = 'actions-cell';
+            
+            let btnEdit = document.createElement('button');
+            btnEdit.className = 'btn-action btn-edit';
+            btnEdit.textContent = 'Editar';
+            btnEdit.onclick = () => openEditModal(id, dataRow);
+            
+            let btnDelete = document.createElement('button');
+            btnDelete.className = 'btn-action btn-delete';
+            btnDelete.textContent = 'Eliminar';
+            btnDelete.onclick = () => deleteRecord(id);
+            
+            td.appendChild(btnEdit);
+            td.appendChild(btnDelete);
+            return td;
+        }
+
+        function openCreateModal() {
+            document.getElementById('modal-title').textContent = 'Añadir Nuevo Registro';
+            document.getElementById('entity-id').value = '';
+            buildFormFields();
+            document.getElementById('crud-modal').style.display = 'flex';
+        }
+
+        function openEditModal(id, data) {
+            document.getElementById('modal-title').textContent = 'Modificar Registro #' + id;
+            document.getElementById('entity-id').value = id;
+            buildFormFields(data);
+            document.getElementById('crud-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('crud-modal').style.display = 'none';
+            document.getElementById('modal-form').reset();
+        }
+
+        function buildFormFields(data = null) {
+            const container = document.getElementById('form-dynamic-fields');
+            container.innerHTML = '';
+
+            if (currentTab === 'clientes') {
+                container.innerHTML = `
+                    <div class="form-group"><label>Nombre</label><input type="text" id="field_nombre" value="${data?.nombre || ''}" required></div>
+                    <div class="form-group"><label>Apellido</label><input type="text" id="field_apellido" value="${data?.apellido || ''}" required></div>
+                    <div class="form-group"><label>Teléfono</label><input type="text" id="field_telefono" value="${data?.telefono || ''}" required></div>
+                    <div class="form-group"><label>Correo Electrónico</label><input type="email" id="field_correo" value="${data?.correo || ''}" required></div>
+                    <div class="form-group"><label>Dirección</label><input type="text" id="field_direccion" value="${data?.direccion || ''}" required></div>
+                    ${!data ? `<div class="form-group"><label>Contraseña Acceso</label><input type="password" id="field_password" required></div>` : ''}
+                `;
+            } 
+            else if (currentTab === 'empleados') {
+                container.innerHTML = `
+                    <div class="form-group"><label>Nombre</label><input type="text" id="field_nombre" value="${data?.nombre || ''}" required></div>
+                    <div class="form-group"><label>Apellido</label><input type="text" id="field_apellido" value="${data?.apellido || ''}" required></div>
+                    <div class="form-group"><label>Cargo</label><input type="text" id="field_cargo" value="${data?.cargo || ''}" required></div>
+                    <div class="form-group"><label>Teléfono</label><input type="text" id="field_telefono" value="${data?.telefono || ''}" required></div>
+                    <div class="form-group"><label>Correo Electrónico</label><input type="email" id="field_correo" value="${data?.correo || ''}" required></div>
+                    <div class="form-group"><label>Rol Organizacional</label>
+                        <select id="field_rol">
+                            <option value="trabajador" ${data?.rol === 'trabajador' ? 'selected' : ''}>Trabajador (Operario)</option>
+                            <option value="admin" ${data?.rol === 'admin' ? 'selected' : ''}>Administrador</option>
+                        </select>
+                    </div>
+                    ${!data ? `<div class="form-group"><label>Contraseña Acceso</label><input type="password" id="field_password" required></div>` : ''}
+                `;
+            } 
+            else if (currentTab === 'citas') {
+                container.innerHTML = `
+                    <div class="form-group"><label>Estado</label>
+                        <select id="field_estado">
+                            <option value="pendiente" ${data?.estado === 'pendiente' ? 'selected' : ''}>Pendiente</option>
+                            <option value="en_proceso" ${data?.estado === 'en_proceso' ? 'selected' : ''}>En Proceso</option>
+                            <option value="terminado" ${data?.estado === 'terminado' ? 'selected' : ''}>Terminado</option>
+                            <option value="cancelado" ${data?.estado === 'cancelado' ? 'selected' : ''}>Cancelado</option>
+                        </select>
+                    </div>
+                `;
+            }
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('entity-id').value;
+            const action = id ? 'update' : 'create';
+            let payload = { id: id || null };
+
+            if (currentTab === 'clientes') {
+                payload.nombre = document.getElementById('field_nombre').value.trim();
+                payload.apellido = document.getElementById('field_apellido').value.trim();
+                payload.telefono = document.getElementById('field_telefono').value.trim();
+                payload.correo = document.getElementById('field_correo').value.trim();
+                payload.direccion = document.getElementById('field_direccion').value.trim();
+                if (!id) payload.password = document.getElementById('field_password').value;
+            } 
+            else if (currentTab === 'empleados') {
+                payload.nombre = document.getElementById('field_nombre').value.trim();
+                payload.apellido = document.getElementById('field_apellido').value.trim();
+                payload.cargo = document.getElementById('field_cargo').value.trim();
+                payload.telefono = document.getElementById('field_telefono').value.trim();
+                payload.correo = document.getElementById('field_correo').value.trim();
+                payload.rol = document.getElementById('field_rol').value;
+                if (!id) payload.password = document.getElementById('field_password').value;
+            } 
+            else if (currentTab === 'citas') {
+                payload.estado = document.getElementById('field_estado').value;
+            }
+
+            try {
+                const response = await fetch(`admin_api.php?action=${action}&tab=${currentTab}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const res = await response.json();
+                alert(res.message || 'Operación realizada con éxito');
+                closeModal();
+                loadTableData();
+            } catch (error) {
+                alert('No se pudo procesar la solicitud.');
+            }
+        }
+
+        async function deleteRecord(id) {
+            if (!confirm('¿Confirma que desea eliminar definitivamente este registro?')) return;
+            
+            try {
+                const response = await fetch(`admin_api.php?action=delete&tab=${currentTab}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id })
+                });
+                const res = await response.json();
+                alert(res.message || 'Registro eliminado');
+                loadTableData();
+            } catch (error) {
+                alert('Error al intentar eliminar.');
+            }
+        }
+
+        function cerrarSesion() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+
+     <footer class="site-footer">
+        <div class="footer-logo-container">
+            <span class="footer-logo-text">🧼 DetailingYali</span>
+        </div>
+        <p class="footer-tagline">Tu destino para el detallado automotriz profesional</p>
+        <p class="footer-copyright">&copy; 2026 AutoDetailPro. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

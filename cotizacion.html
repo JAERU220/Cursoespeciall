@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Cotización - AutoDetailPro</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- BLOQUEO DE SEGURIDAD INMEDIATO: Expulsa al usuario antes de cargar la página si no está registrado -->
+    <script>
+        (function() {
+            const usuarioValido = localStorage.getItem('usuario_logeado');
+            if (!usuarioValido) {
+                alert('Acceso denegado. Debes registrarte primero para poder solicitar una cotización.');
+                window.location.href = 'registrarse.html';
+                document.write('<!--'); // Detiene el procesamiento visual de inmediato
+            }
+        })();
+    </script>
+
+    <style>
+        /* ==========================================================================
+           1. RESET Y ESTILOS GENERALES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #05070f;
+            color: #ffffff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ==========================================================================
+           2. BARRA DE NAVEGACIÓN
+           ========================================================================== */
+        .navbar-wrapper {
+            width: 100%;
+            background-color: rgba(5, 7, 15, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            padding: 1.5rem 2rem; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            transition: all 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        /* ==========================================================================
+           3. CONTENEDOR CENTRAL DEL FORMULARIO
+           ========================================================================== */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5rem 2rem;
+            width: 100%;
+        }
+
+        .auth-card {
+            background-color: #0b0e1a;
+            width: 100%;
+            max-width: 520px;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid #161b30;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .auth-header p {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* FORMULARIO E INPUTS */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            letter-spacing: 0.03em;
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            font-size: 1rem;
+            border: 1px solid #161b30;
+            border-radius: 12px;
+            background-color: #05070f;
+            color: #ffffff;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #00b4db;
+            box-shadow: 0 0 0 4px rgba(0, 180, 219, 0.15);
+        }
+
+        /* BOTÓN SUBMIT PREMIUM */
+        .btn-submit {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #161b30;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background-color: #0b0e1a;
+            border-color: #00b4db;
+            box-shadow: 0 0 15px rgba(0, 180, 219, 0.2);
+        }
+
+        .btn-submit:disabled {
+            color: #718096;
+            border-color: #161b30;
+            background-color: #05070f;
+            cursor: not-allowed;
+        }
+
+        /* ALERTAS DINÁMICAS (ESTADOS DE JS) */
+        .status-msg {
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .status-msg.success {
+            background-color: rgba(0, 180, 219, 0.1);
+            color: #00b4db;
+            border: 1px solid rgba(0, 180, 219, 0.3);
+        }
+
+        .status-msg.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* ==========================================================================
+           4. PIE DE PÁGINA
+           ========================================================================== */
+        .site-footer {
+            background: linear-gradient(135deg, #0e1326 0%, #070914 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 3rem 2rem;
+            width: 100%;
+            border-top: 2px solid #00b4db;
+            box-shadow: inset 0 10px 30px rgba(0, 180, 219, 0.05), 0 -10px 40px rgba(0, 0, 0, 0.6);
+            margin-top: auto;
+        }
+
+        @media (max-width: 576px) {
+            .auth-card {
+                padding: 2.5rem 1.5rem;
+                border: none;
+                background-color: transparent;
+                box-shadow: none;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="navbar-wrapper">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span>AutoDetailPro</span>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="servicios.html">Servicios</a>
+                <a href="paquetes.html">Paquetes</a>
+                <a href="galeria.html">Galería</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR CENTRAL DEL FORMULARIO -->
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Cotiza tu Auto</h2>
+                <p>Describe el estado de tu vehículo y recibe un presupuesto personalizado</p>
+            </div>
+
+            <div id="status-message" class="status-msg" style="display: none;"></div>
+
+            <form class="auth-form" id="form-cotizacion">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono de Contacto</label>
+                    <input type="text" id="telefono" placeholder="Ej: 7221234567" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Mensaje / Detalles del Servicio</label>
+                    <textarea id="mensaje" placeholder="Indica marca, modelo del auto y el tipo de detallado que buscas..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit" id="btn-submit">Enviar Solicitud</button>
+            </form>
+       </main>
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const formCotizacion = document.getElementById('form-cotizacion');
+    const statusMessage = document.getElementById('status-message');
+    const btnSubmit = document.getElementById('btn-submit');
+
+    // Precargar datos si el cliente ya había iniciado sesión en el taller
+    const nombreGuardado = localStorage.getItem('usuario_logeado');
+    const correoGuardado = localStorage.getItem('usuario_logeado_correo');
+
+    if (nombreGuardado && document.getElementById('nombre')) {
+        document.getElementById('nombre').value = nombreGuardado;
+    }
+    if (correoGuardado && document.getElementById('email')) {
+        document.getElementById('email').value = correoGuardado;
+    }
+
+    formCotizacion.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombre').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const mensaje = document.getElementById('mensaje').value.trim();
+
+        statusMessage.style.display = 'none';
+        statusMessage.className = 'status-msg';
+
+        if (!nombre || !email || !telefono || !mensaje) {
+            showStatus('Por favor, rellena todos los campos del formulario.', 'error');
+            return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Enviando solicitud...';
+
+        try {
+            // Conecta con tu procesador PHP independiente
+            const response = await fetch('cotizacion.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, email, telefono, mensaje })
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'success') {
+                showStatus(resultado.message, 'success');
+                formCotizacion.reset();
+                
+                if (nombreGuardado) document.getElementById('nombre').value = nombreGuardado;
+                if (correoGuardado) document.getElementById('email').value = correoGuardado;
+                
+                setTimeout(() => { window.location.href = 'index.html'; }, 2500);
+            } else {
+                showStatus(resultado.message || 'Error al procesar la cotización.', 'error');
+            }
+        } catch (error) {
+            showStatus('No se pudo establecer comunicación con el servidor.', 'error');
+        } finally {
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = 'Enviar Solicitud';
+        }
+    });
+
+    function showStatus(message, type) {
+        statusMessage.textContent = message;
+        statusMessage.style.display = 'block';
+        statusMessage.className = 'status-msg ' + type;
+    }
+});
+</script>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="site-footer">
+        <div class="footer-logo-container">
+            <span class="footer-logo-text">🧼 DetailingYali</span>
+        </div>
+        <p>&copy; 2026 AutoDetailPro. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

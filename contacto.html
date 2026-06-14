@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - detailingyali</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="contacto.css">
+
+    <style>
+        .status-msg { padding: 1rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center; }
+        .status-msg.success { background-color: rgba(0, 180, 219, 0.1); color: #00b4db; border: 1px solid rgba(0, 180, 219, 0.3); }
+        .status-msg.error { background-color: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+        
+        /* Contenedor estético para la imagen de la derecha */
+        .contact-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .contact-image {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 24px;
+            border: 1px solid #161b30;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-image:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN COMPLEMENTARIA FORZADA A ANCHO COMPLETO -->
+    <header class="navbar-wrapper" style="width: 100vw !important; max-width: 100vw !important; left: 50% !important; right: 50% !important; margin-left: -50vw !important; margin-right: -50vw !important; display: block !important;">
+        <div class="navbar-container" style="width: 100% !important; max-width: 100% !important; padding: 0.8rem 4rem !important; display: flex !important; justify-content: space-between !important; align-items: center !important; margin: 0 auto !important; box-sizing: border-box !important;">
+            <div class="logo" style="display: flex !important; align-items: center !important; gap: 0.5rem !important;">
+                     <!-- ICONO PREMIUM -->
+                <svg viewBox="0 0 100 100" class="logo-svg-premium" style="width: 34px !important; height: 34px !important;">
+                    <defs>
+                        <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00b4db" />
+                            <stop offset="100%" stop-color="#0083b0" />
+                        </linearGradient>
+                        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00f2fe" />
+                            <stop offset="100%" stop-color="#4facfe" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M10 65 h12 a6 6 0 0 1 12 0 h32 a6 6 0 0 1 12 0 h12 v-6 c0-3-2-6-5-7 l-15-8 c-4-2-8-4-13-4 h-18 c-3 0-6 2-8 5 l-18 14 c-2 2-4 4-4 7 z" fill="url(#carGrad)" />
+                    <path d="M42 43 h16 l10 7 h-21 z" fill="#ffffff" opacity="0.6" />
+                    <circle cx="28" cy="65" r="7" fill="#1f2937" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="28" cy="65" r="3" fill="#9ca3af" />
+                    <circle cx="70" cy="65" r="7" fill="#1f2937" stroke="#ffffff" stroke-width="2" />
+                    <circle cx="70" cy="65" r="3" fill="#9ca3af" />
+                    <path d="M35 25 l2 5 l5 2 l-5 2 l-2 5 l-2-5 l-5-2 l5-2 z" fill="url(#glowGrad)" />
+                    <path d="M78 32 l1.5 3.5 l3.5 1.5 l-3.5 1.5 l-1.5 3.5 l-1.5-3.5 l-3.5-1.5 l3.5-1.5 z" fill="url(#glowGrad)" />
+                </svg>
+                <span style="font-size: 1.15rem !important; font-weight: 700 !important; color: #ffffff !important;">detailingyali</span>
+            </div>
+            <nav class="nav-links" style="display: flex !important; gap: 0.5rem !important; align-items: center !important;">
+                <a href="index.html">Inicio</a>
+                <a href="servicios.html">Servicios</a>
+                <a href="paquetes.html">Paquetes</a>
+                <a href="galeria.html">Galería</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- SECCIÓN DE CONTACTO -->
+    <main class="contact-container" style="display: flex; justify-content: space-between; align-items: center; gap: 4rem; max-width: 1200px; margin: 0 auto; padding: 5rem 2rem;">
+        <!-- Columna Izquierda: Información de contacto -->
+        <section class="contact-info" style="flex: 1;">
+            <h1>¿Listo para darle vida a tu auto?</h1>
+            <p class="contact-subtitle" style="margin-bottom: 2rem; color: #cbd5e1;">Contáctanos hoy mismo y agenda tu cita. Estamos aquí para hacer que tu auto luzca como nuevo.</p>
+            
+            <div class="info-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div class="info-item" style="display: flex; align-items: center; gap: 1rem;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #00b4db;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span>(712) 204 45 17</span>
+                </div>
+                <div class="info-item" style="display: flex; align-items: center; gap: 1rem;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #00b4db;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>detailingyali@gmail.com</span>
+                </div>
+                <div class="info-item" style="display: flex; align-items: center; gap: 1rem;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #00b4db;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <span>villa victoria edomex</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Columna Derecha: Imagen integrada a la estética del taller -->
+        <section class="contact-image-container">
+            <!-- Cambia 'imagenes/taller_contacto.png' por la ruta real de tu imagen (ej: imagenes/auto.png) -->
+            <img src="llamada.jpg" alt="Instalaciones AutoDetailPro" class="contact-image">
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+   <footer class="site-footer">
+        <div class="footer-logo-container">
+            <span class="footer-logo-text">🧼 DetailingYali</span>
+        </div>
+        <p class="footer-tagline">Tu destino para el detallado automotriz profesional</p>
+        <p class="footer-copyright">&copy; 2026 AutoDetailPro. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

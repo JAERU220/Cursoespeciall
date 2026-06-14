@@ -1,0 +1,118 @@
+html {
+    height: 100%; /* Permite que el body calcule el fondo real de la ventana */
+}
+
+body {
+    background-color: #05070f;
+    color: #ffffff;
+    padding: 0 4rem;
+    overflow-x: hidden;
+    
+    /* Configuración Flexbox Estricta */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    margin: 0;
+}
+
+/* 
+   TRUCO MAESTRO: Forzamos a cualquier contenedor superior a estirarse 
+   y rellenar el vacío, empujando al footer al límite del monitor.
+*/
+.hero-container,
+.tabla-seccion-wrapper,
+.contact-container,
+.gallery-section,
+.pricing-section,
+.services-section,
+.login-container,
+.booking-container,
+.main-content-wrapper {
+    flex: 1 0 auto; /* Crece dinámicamente si falta contenido */
+}
+
+/* ==========================================================================
+   4. FOOTER (CORREGIDO Y ANCLADO AL FONDO ABSOLUTO)
+   ========================================================================== */
+.site-footer {
+    /* Fondo oscuro premium con un sutil degradado */
+    background: linear-gradient(135deg, #070914 0%, #03040a 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 3rem 4rem;
+    
+    /* Configuración de caja flexible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+    /* Línea superior cian sutil y elegante */
+    border-top: 1px solid rgba(0, 180, 219, 0.3); 
+    box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.7);
+    
+    /* Posicionamiento y anclaje definitivo */
+    margin-top: auto; /* Se amarra abajo gracias al flex del body */
+    flex-shrink: 0;   /* Protege al footer de aplastarse */
+    clear: both;
+    
+    /* Extensión de punta a punta (100vw) */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%); 
+}
+
+/* Contenedor del Logo */
+.footer-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Texto del Logo con el Emoji de Jabón */
+.footer-logo-text {
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* Eslogan: Gris azulado claro para un contraste óptimo */
+.footer-tagline {
+    font-size: 0.92rem;
+    color: #94a3b8; 
+    font-weight: 400;
+    margin: 0;
+    max-width: 500px;
+    line-height: 1.5;
+}
+
+/* Copyright: Tono secundario legible pero discreto */
+.footer-copyright {
+    font-size: 0.78rem;
+    color: #64748b; 
+    letter-spacing: 0.02em;
+    margin: 4px 0 0 0;
+}
+
+/* Ajuste Responsivo para Celulares */
+@media (max-width: 968px) {
+    body {
+        padding: 0 1.5rem; /* Reduce padding del body en móvil para evitar scroll lateral */
+    }
+
+    .site-footer {
+        padding: 2.5rem 1.5rem;
+        gap: 10px;
+        width: 100vw;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-tagline {
+        font-size: 0.88rem;
+    }
+}

@@ -1,0 +1,234 @@
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 !important; /* Limpia cualquier padding lateral heredado de otras páginas */
+    overflow-x: hidden;
+}
+
+/* Envoltorio maestro: centra el login verticalmente y empuja el footer al piso */
+.login-page-wrapper {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* ==========================================================================
+   2. ESTILOS DEL FORMULARIO DE INICIO DE SESIÓN
+   ========================================================================== */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 2rem;
+    width: 100%;
+}
+
+.auth-card {
+    background-color: #0b0e1a;
+    width: 100%;
+    max-width: 460px;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid #161b30;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.auth-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.auth-header p {
+    font-size: 1rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    letter-spacing: 0.03em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    font-size: 1rem;
+    border: 1px solid #161b30;
+    border-radius: 12px;
+    background-color: #05070f;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.form-group input:focus {
+    border-color: #00b4db;
+    box-shadow: 0 0 0 4px rgba(0, 180, 219, 0.15);
+}
+
+.btn-submit {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #161b30;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.btn-submit:hover {
+    background-color: #0b0e1a;
+    border-color: #00b4db;
+    box-shadow: 0 0 15px rgba(0, 180, 219, 0.2);
+}
+
+.btn-submit:disabled {
+    color: #718096;
+    border-color: #161b30;
+    background-color: #05070f;
+    cursor: not-allowed;
+}
+
+.auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.auth-footer p { 
+    color: #cbd5e1; 
+}
+
+.auth-footer a { 
+    color: #00b4db; 
+    text-decoration: none; 
+    font-weight: 700; 
+    margin-left: 4px; 
+}
+
+.auth-footer a:hover { 
+    text-decoration: underline; 
+}
+
+.status-msg {
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.status-msg.success {
+    background-color: rgba(0, 180, 219, 0.1);
+    color: #00b4db;
+    border: 1px solid rgba(0, 180, 219, 0.3);
+}
+
+.status-msg.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* ==========================================================================
+   3. FOOTER PREMIUM (DE PUNTA A PUNTA)
+   ========================================================================== */
+.site-footer {
+    background: linear-gradient(135deg, #070914 0%, #03040a 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 2.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid rgba(0, 180, 219, 0.3); 
+    box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.7);
+    
+    /* Amarre definitivo al fondo absoluto */
+    margin-top: auto; 
+    flex-shrink: 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.footer-logo-container { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+}
+
+.footer-logo-text { 
+    color: #ffffff; 
+    font-size: 1.35rem; 
+    font-weight: 800; 
+    letter-spacing: 0.5px; 
+}
+
+.footer-copyright { 
+    font-size: 0.78rem; 
+    color: #64748b; 
+    letter-spacing: 0.02em; 
+    margin: 4px 0 0 0; 
+}
+
+/* ==========================================================================
+   4. RESPONSIVE Y DISEÑO MÓVIL
+   ========================================================================== */
+@media (max-width: 968px) {
+    .site-footer { 
+        padding: 2rem 1.5rem; 
+    }
+}
+
+@media (max-width: 576px) {
+    .auth-container {
+        padding: 3rem 1rem;
+    }
+    .auth-card {
+        padding: 2.5rem 1.2rem;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+    }
+}

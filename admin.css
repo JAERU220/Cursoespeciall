@@ -1,0 +1,290 @@
+/* ==========================================================================
+   ESTILOS GENERALES DEL PANEL DE ADMINISTRACIÓN (AutoDetailPro)
+   ========================================================================== */
+
+/* Contenedor principal que divide la pantalla (Sidebar izquierda + Contenido derecha) */
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #05070f;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- BARRA LATERAL (SIDEBAR) --- */
+.sidebar {
+    width: 260px;
+    background: #0b0e1a;
+    border-right: 1px solid #161b30;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    font-size: 1.25rem;
+    color: #00b4db;
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+/* Botones del Menú Lateral */
+.menu-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: #a0a5b5;
+    padding: 14px 16px;
+    text-align: left;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover, 
+.menu-btn.active {
+    background: #161b30;
+    color: #00b4db;
+    border-color: #00b4db;
+}
+
+/* Botón de Cerrar Sesión al fondo */
+.logout-btn {
+    margin-top: auto;
+    color: #ff4d4d;
+    border-color: rgba(255, 77, 77, 0.15);
+}
+
+.logout-btn:hover {
+    background: rgba(255, 77, 77, 0.08);
+    color: #ff4d4d;
+    border-color: #ff4d4d;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.content-header h1 {
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Botón Añadir Registro */
+.btn-add {
+    background: #00b4db;
+    color: #ffffff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-add:hover {
+    background: #0083b0;
+}
+
+.btn-add:active {
+    transform: scale(0.98);
+}
+
+/* --- TABLA CRUD --- */
+.crud-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid #161b30;
+}
+
+.crud-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #0b0e1a;
+    text-align: left;
+}
+
+.crud-table th, 
+.crud-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #161b30;
+    font-size: 0.95rem;
+}
+
+.crud-table th {
+    background: #0f1326;
+    color: #00b4db;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.6px;
+}
+
+.crud-table tr:last-child td {
+    border-bottom: none;
+}
+
+.crud-table tr:hover {
+    background: #12172e;
+}
+
+/* Acciones (Editar/Eliminar) */
+.actions-cell {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.btn-action:hover {
+    opacity: 0.9;
+}
+
+.btn-action:active {
+    transform: scale(0.95);
+}
+
+.btn-edit {
+    background: #f39c12;
+    color: #ffffff;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: #ffffff;
+}
+
+/* --- VENTANAS MODALES --- */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(3, 4, 9, 0.85);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #0b0e1a;
+    border: 1px solid #161b30;
+    padding: 35px;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    background: none;
+    border: none;
+    color: #a0a5b5;
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: #ff4d4d;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Formularios dentro del Modal */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #a0a5b5;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #05070f;
+    border: 1px solid #161b30;
+    color: #ffffff;
+    outline: none;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+    border-color: #00b4db;
+}
+
+.btn-submit-modal {
+    width: 100%;
+    padding: 14px;
+    background: #00b4db;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.3s ease;
+}
+
+.btn-submit-modal:hover {
+    background: #0083b0;
+}

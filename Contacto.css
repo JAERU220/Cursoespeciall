@@ -1,0 +1,303 @@
+/* ==========================================================================
+   RESET GENERAL Y TIPOGRAFÍA
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: #05070f; /* Unificado con el color negro azulado continuo */
+    color: #ffffff; /* Texto general en blanco para alto contraste */
+    padding: 0 4rem;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN COMPLETA (ESTILO PREMIUM OSCURO TRANSLÚCIDO)
+   ========================================================================== */
+.navbar-wrapper {
+    width: 100vw;
+    background-color: rgba(5, 7, 15, 0.85); /* Fondo oscuro translúcido */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Línea clara sutil */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.navbar-container {
+    max-width: 100%;
+    padding: 1.5rem 4rem; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff; /* Letras de marca en blanco */
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #cbd5e1; /* Gris claro de alta legibilidad */
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.06); /* Selector sutil en hover */
+    transform: translateY(-2px);
+}
+
+.btn-primary.btn-cta {
+    background-color: #000000; /* Botón negro sólido */
+    color: #ffffff;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid #161b30;
+    transition: all 0.2s ease;
+}
+
+.btn-primary.btn-cta:hover {
+    background-color: #0b0e1a;
+    border-color: #00b4db; /* Destello cian del logo al pasar el cursor */
+}
+
+/* ==========================================================================
+   ESTRUCTURA PRINCIPAL DE CONTACTO (DOS COLUMNAS)
+   ========================================================================== */
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 0 8rem 0;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; 
+    gap: 5rem;
+    align-items: start;
+}
+
+/* COLUMNA IZQUIERDA: TEXTOS E ICONOS */
+.contact-info h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #ffffff; /* Título principal en blanco */
+    margin-bottom: 2rem;
+}
+
+.contact-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #cbd5e1; /* Gris suave */
+    margin-bottom: 3.5rem;
+    max-width: 90%;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+.info-item svg {
+    color: #00b4db; /* Cambiado a cian metálico para que resalte los iconos */
+    flex-shrink: 0;
+}
+
+/* COLUMNA DERECHA: FORMULARIO PREMIUM OSCURO */
+.contact-form-container {
+    background-color: #0b0e1a; /* Bloque interno gris azulado oscuro para dar volumen */
+    border: 1px solid #161b30;
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.contact-form-container h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+/* INPUTS Y TEXTAREA INTEGRADOS CON LA PALETA OSCURA */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #05070f; /* Fondo negro azulado interno */
+    border: 1px solid #161b30;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.form-group textarea {
+    resize: vertical; 
+}
+
+/* EFECTO DE FOCO ACTIVO CON DESTELLO CIAN EN LOS CAMPOS */
+.form-group input:focus,
+.form-group textarea:focus {
+    background-color: #0b0e1a;
+    border-color: #00b4db;
+    box-shadow: 0 0 0 3px rgba(0, 180, 219, 0.15);
+}
+
+/* BOTÓN PREMIUM ENVIAR SOLICITUD */
+.btn-submit {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 1.1rem;
+    border: 1px solid #161b30;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #05070f;
+    border-color: #00b4db;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   PIE DE PÁGINA (FOOTER DE ALTO CONTRASTE PREMIUM)
+   ========================================================================== */
+.site-footer {
+    background: linear-gradient(135deg, #0e1326 0%, #070914 100%) !important; /* Gris azulado metalizado profundo */
+    color: #ffffff;
+    text-align: center;
+    padding: 4rem 2rem;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    /* Línea de luz cian metálica que corta el fondo oscuro de la página */
+    border-top: 2px solid #00b4db; 
+    
+    /* Sombra interna para dar un efecto de profundidad tridimensional */
+    box-shadow: inset 0 10px 30px rgba(0, 180, 219, 0.05), 0 -10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 1.5rem;
+    font-weight: 800; /* Texto de marca imponente */
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.footer-tagline {
+    font-size: 1.1rem;
+    color: #e2e8f0 !important; /* Blanco brillante para máximo contraste */
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: #718096 !important; /* Gris acero limpio */
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVO MÓVIL)
+   ========================================================================== */
+@media (max-width: 968px) {
+    body {
+        padding: 0 1.5rem;
+    }
+
+    .navbar-container {
+        padding: 1.5rem 0;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr; 
+        gap: 3.5rem;
+        padding: 3rem 0 6rem 0;
+    }
+
+    .contact-info h1 {
+        font-size: 2.4rem;
+    }
+
+    .contact-form-container {
+        padding: 2rem 1.5rem;
+    }
+}

@@ -1,0 +1,319 @@
+/* ==========================================================================
+   1. RESETEO GENERAL Y BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: #05070f; /* Unificado con el color negro azulado continuo */
+    color: #ffffff; /* Texto general en blanco para alto contraste */
+    padding: 0 4rem;
+    overflow-x: hidden;
+    /* Estructura flex para forzar al footer a quedarse abajo */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   2. BARRA DE NAVEGACIÓN (HEADER)
+   ========================================================================== */
+.navbar-wrapper {
+    width: 100vw;
+    background-color: rgba(5, 7, 15, 0.85); /* Fondo oscuro translúcido */
+    backdrop-filter: blur(10px); /* Vidrio esmerilado */
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Línea clara sutil */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.navbar-container {
+    max-width: 100%;
+    padding: 1.5rem 4rem; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff; /* Letras de marca en blanco */
+    text-decoration: none;
+}
+
+/* Icono del coche deportivo superior */
+.logo-svg-premium {
+    width: 44px;
+    height: 44px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.logo:hover .logo-svg-premium {
+    transform: scale(1.12) translateX(4px); /* El auto avanza hacia el texto */
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #cbd5e1; /* Gris claro de alta legibilidad */
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.06); /* Selector sutil en hover */
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: #000000; /* Botón negro sólido */
+    color: #ffffff;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid #161b30;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b0e1a;
+    border-color: #00b4db; /* Destello cian en hover */
+    transform: scale(1.02);
+}
+
+/* ==========================================================================
+   3. SECCIÓN DE SERVICIOS (CONTENIDO PRINCIPAL)
+   ========================================================================== */
+.services-section {
+    flex: 1; /* Empuja el footer hacia la parte inferior de la pantalla */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 0 8rem 0;
+}
+
+.services-header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.services-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff; /* Título principal en blanco */
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.services-header p {
+    font-size: 1.2rem;
+    color: #cbd5e1; /* Texto secundario gris suave */
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+}
+
+/* TARJETA DE SERVICIO PREMIUM OSCURA */
+.service-card {
+    background-color: #0b0e1a; /* Bloque interno gris azulado oscuro para dar volumen */
+    border: 1px solid #161b30;
+    border-radius: 24px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: #00b4db; /* Borde cian brillante en hover */
+    box-shadow: 0 20px 40px rgba(0, 180, 219, 0.12);
+}
+
+.service-icon {
+    color: #ffffff;
+    background-color: #05070f; /* Fondo oscuro interno para el icono */
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    border: 1px solid #161b30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-icon svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+/* Al pasar el mouse, el icono se enciende con la identidad de tu marca */
+.service-card:hover .service-icon {
+    background-color: #00b4db; /* Cian metálico */
+    color: #ffffff;
+    border-color: #00b4db;
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.service-card:hover .service-icon svg {
+    transform: scale(1.05);
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.service-card p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #cbd5e1; /* Blanco suave de alta legibilidad */
+}
+
+/* ==========================================================================
+   4. PIE DE PÁGINA (FOOTER DE ALTO CONTRASTE PREMIUM)
+   ========================================================================== */
+.site-footer {
+    background: linear-gradient(135deg, #0e1326 0%, #070914 100%) !important; /* Gris azulado metalizado profundo */
+    color: #ffffff;
+    text-align: center;
+    padding: 50px 20px;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    /* Línea de luz cian metálica que corta el fondo oscuro de la página */
+    border-top: 2px solid #00b4db; 
+    
+    /* Sombra interna para dar un efecto de profundidad tridimensional */
+    box-shadow: inset 0 10px 30px rgba(0, 180, 219, 0.05), 0 -10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Contenedor propio para el logo del footer */
+.footer-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Dimensiones e iluminación de la pulidora orbital */
+.footer-svg-premium {
+    width: 55px !important;
+    height: 55px !important;
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.3)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+/* Animación sutil de rotación orbital para la maquinita */
+.footer-logo-container:hover .footer-svg-premium {
+    transform: scale(1.15) rotate(-8deg);
+}
+
+/* Arreglo definitivo para el texto de "DetailingYali" */
+.footer-logo-text {
+    color: #ffffff !important; /* Blanco puro e independiente */
+    font-size: 26px !important;
+    font-weight: 800 !important; /* Cambiado a bold para consistencia premium */
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.footer-tagline {
+    font-size: 1.1rem;
+    color: #e2e8f0 !important; /* Blanco brillante para máximo contraste */
+    font-weight: 500;
+    margin: 0;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: #718096 !important; /* Gris acero limpio */
+    margin: 5px 0 0 0;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   5. RESPONSIVO PARA PANTALLAS MÓVILES
+   ========================================================================== */
+@media (max-width: 968px) {
+    body {
+        padding: 0 1.5rem;
+    }
+    
+    .navbar-container {
+        padding: 1.5rem 0;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        margin: 0.5rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .services-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .service-card {
+        padding: 2rem;
+    }
+}

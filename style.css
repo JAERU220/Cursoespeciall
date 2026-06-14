@@ -1,0 +1,308 @@
+/* ==========================================================================
+   1. RESET GENERAL, TIPOGRAFÍA Y ESTRUCTURA
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+body {
+    background-color: #05070f;
+    color: #ffffff;
+    padding: 0 4rem;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+/* Contenedores principales que deben empujar el footer */
+.hero-container,
+.tabla-seccion-wrapper,
+.contact-container,
+.gallery-section,
+.pricing-section,
+.services-section,
+.login-container,
+.booking-container,
+.main-content-wrapper {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: calc(100vh - 200px);
+}
+
+/* ==========================================================================
+   2. NAVEGACIÓN (EXPANDIDA DE PUNTA A PUNTA)
+   ========================================================================== */
+.navbar-wrapper {
+    width: 100vw;
+    background-color: rgba(5, 7, 15, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 100% !important; /* Libera el bloqueo para expandir los elementos */
+    padding: 0.8rem 4rem; /* Margen premium en los extremos laterales */
+    display: flex;
+    justify-content: space-between; /* Envía logo a la izquierda y botones a la derecha */
+    align-items: center;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo-svg-premium {
+    width: 34px;
+    height: 34px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.logo:hover .logo-svg-premium {
+    transform: scale(1.1) translateX(2px);
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    display: inline-block;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.04);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-buttons {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+/* Botones CTA del Nav Refinados */
+.btn-primary.btn-cta {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: 1px solid #161b30;
+    cursor: pointer;
+    transition: all 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary.btn-cta:hover {
+    background-color: #0b0e1a;
+    border-color: #00b4db;
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   3. HERO
+   ========================================================================== */
+.hero-container {
+    max-width: 1200px;
+    margin: 60px auto 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.hero-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+    max-width: 90%;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-buttons .btn-primary {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid #161b30;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.hero-buttons .btn-primary:hover {
+    background-color: #111111;
+}
+
+.hero-buttons .btn-secondary {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid #ffffff;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.hero-buttons .btn-secondary:hover {
+    background-color: #ffffff;
+    color: #05070f;
+}
+
+.hero-image-container {
+    width: 100%;
+    height: 550px;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   4. FOOTER
+   ========================================================================== */
+.site-footer {
+    /* Fondo premium con degradado y bordes suavizados */
+    background: linear-gradient(135deg, #070914 0%, #03040a 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 3rem 4rem; /* Unificado con el padding lateral de tu web */
+    gap: 14px;
+    border-top: 1px solid rgba(0, 180, 219, 0.3); /* Línea cyan más sutil y elegante */
+    box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.7);
+    
+    /* FLEXBOX CORREGIDO: Fuerza el anclaje abajo */
+    margin-top: auto;
+    flex-shrink: 0;
+
+    /* TÉCNICA MAESTRA CORREGIDA: Evita bugs de posicionamiento vertical */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%); /* Esta línea sustituye los márgenes negativos y clava el footer abajo */
+    
+    /* Flexbox layout interno */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-logo-text {
+    color: #ffffff;
+    font-size: 1.35rem; /* Tamaño equilibrado, no exagerado */
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* Mejora drástica de contraste para el eslogan */
+.footer-tagline {
+    font-size: 0.9rem;
+    color: #94a3b8; /* Gris azulado claro para mejor lectura sobre fondo oscuro */
+    font-weight: 400;
+    margin: 0;
+}
+
+/* Mejora de contraste y sutileza para el copyright */
+.footer-copyright {
+    font-size: 0.78rem;
+    color: #64748b; /* Tono intermedio legible pero secundario */
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+}
+/* ==========================================================================
+   5. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 968px) {
+    body {
+        padding: 0 1.5rem;
+    }
+
+    .navbar-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .nav-links {
+        margin: 0.3rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.2rem;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        margin-top: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-image-container {
+        height: 350px;
+    }
+}

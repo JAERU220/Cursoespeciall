@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Trabajos Asignados - AutoDetailPro</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="panel_trabajador.css"> 
+    <style>
+        /* ESTRUCTURA CORRECTA FLEXBOX PARA IR DE BORDE A BORDE */
+        html {
+            height: 100%;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { 
+            background-color: #05070f; 
+            color: #ffffff; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Envoltorio del contenido para darle el margen original sin afectar al footer */
+        .page-content-wrapper {
+            padding: 3rem 4rem;
+            flex: 1 0 auto; /* Obliga a este contenedor a estirarse y tirar el footer al piso */
+        }
+
+        .header-panel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; border-bottom: 1px solid #161b30; padding-bottom: 1.5rem; }
+        .header-panel h1 { font-size: 2.2rem; font-weight: 800; }
+        .header-panel span { color: #00b4db; }
+        .btn-logout { background: transparent; color: #f87171; border: 1px solid #f87171; padding: 0.6rem 1.2rem; border-radius: 10px; cursor: pointer; font-weight: 600; text-decoration: none; }
+        .btn-logout:hover { background: rgba(248, 113, 113, 0.1); }
+        .table-container { background-color: #0b0e1a; border-radius: 20px; border: 1px solid #161b30; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 1rem; color: #cbd5e1; border-bottom: 2px solid #161b30; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        td { padding: 1.2rem 1rem; border-bottom: 1px solid #161b30; color: #ffffff; font-size: 1rem; }
+        tr:hover td { background-color: rgba(255, 255, 255, 0.02); }
+        .badge { padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-transform: capitalize; display: inline-block; }
+        
+        /* ESTADOS ADAPTADOS A TU ENUM DE LA BASE DE DATOS NUEVA */
+        .badge.pendiente { background: rgba(234, 179, 8, 0.1); color: #eab308; }
+        .badge.en_proceso { background: rgba(0, 180, 219, 0.1); color: #00b4db; }
+        .badge.terminado { background: rgba(46, 204, 113, 0.1); color: #2ecc71; }
+        .badge.cancelado { background: rgba(231, 76, 60, 0.1); color: #e74c3c; }
+        
+        .no-data { text-align: center; padding: 3rem; color: #718096; font-size: 1.1rem; }
+
+        /* ==========================================================================
+           4. FOOTER ESTILIZADO E INTEGRADO
+           ========================================================================== */
+        .site-footer {
+            background: linear-gradient(135deg, #070914 0%, #03040a 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 3rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border-top: 1px solid rgba(0, 180, 219, 0.3); 
+            box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.7);
+            
+            /* Ajustes maestros de posicionamiento */
+            margin-top: auto; 
+            flex-shrink: 0;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .footer-logo-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .footer-logo-text { color: #ffffff; font-size: 1.35rem; font-weight: 800; letter-spacing: 0.5px; }
+        .footer-tagline { font-size: 0.92rem; color: #94a3b8; font-weight: 400; margin: 0; max-width: 500px; line-height: 1.5; }
+        .footer-copyright { font-size: 0.78rem; color: #64748b; letter-spacing: 0.02em; margin: 4px 0 0 0; }
+
+        @media (max-width: 968px) {
+            .page-content-wrapper { padding: 2rem 1.5rem; }
+            .site-footer { padding: 2.5rem 1.5rem; gap: 10px; }
+            .footer-tagline { font-size: 0.88rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTENEDOR INTERMEDIO QUE EMPIEZA AQUÍ -->
+    <div class="page-content-wrapper">
+        <header class="header-panel">
+            <h1>Órdenes de Trabajo: <span id="nombre-operario">...</span></h1>
+            <button class="btn-logout" id="btn-logout">Cerrar Sesión</button>
+        </header>
+
+        <main class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha / Hora</th>
+                        <th>Automóvil</th>
+                        <th>Placas</th>
+                        <th>Servicio a Realizar</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-trabajos">
+                    <!-- Carga dinámica por AJAX -->
+                </tbody>
+            </table>
+        </main>
+    </div> 
+    <!-- AQUÍ TERMINA EL CONTENEDOR INTERMEDIO -->
+
+    <footer class="site-footer">
+        <div class="footer-logo-container">
+            <span class="footer-logo-text">🧼 DetailingYali</span>
+        </div>
+        <p class="footer-tagline">Tu destino para el detallado automotriz profesional</p>
+        <p class="footer-copyright">&copy; 2026 AutoDetailPro. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const idEmpleado = localStorage.getItem('usuario_id');
+        const nombreEmpleado = localStorage.getItem('usuario_logeado');
+        const rolUsuario = localStorage.getItem('usuario_rol');
+
+        if (!idEmpleado || rolUsuario !== 'trabajador') { 
+            window.location.href = 'login.html'; 
+            return; 
+        }
+        
+        document.getElementById('nombre-operario').textContent = nombreEmpleado;
+
+        fetch(`get_trabajos.php?id_empleado=${idEmpleado}`)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById('lista-trabajos');
+                tbody.innerHTML = ''; 
+                
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="no-data">No tienes automóviles asignados de momento.</td></tr>`;
+                    return;
+                }
+                
+                data.forEach(t => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${t.fecha_hora}</td>
+                            <td><strong>${t.marca} ${t.modelo}</strong> (${t.anio})</td>
+                            <td><code style="color:#00b4db; font-size:1rem;">${t.placas}</code></td>
+                            <td>${t.nombre_servicio}</td>
+                            <td><span class="badge ${t.estado}">${t.estado.replace('_', ' ')}</span></td>
+                        </tr>`;
+                });
+            })
+            .catch(err => {
+                const tbody = document.getElementById('lista-trabajos');
+                tbody.innerHTML = `<tr><td colspan="5" class="no-data" style="color:#f87171;">Error al recuperar las órdenes desde get_trabajos.php</td></tr>`;
+            });
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        });
+    });
+    </script>
+</body>
+</html>
